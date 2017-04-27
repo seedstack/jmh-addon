@@ -26,6 +26,10 @@
         <seed.version>3.1.0</seed.version>
         <jmh.version>1.18</jmh.version>
         <logback.version>1.1.6</logback.version>
+
+        <compatibility.skip>true</compatibility.skip>
+
+        <bintray.package>jmh-addon</bintray.package>
     </properties>
 
     <build>

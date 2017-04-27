@@ -11,9 +11,8 @@ import org.junit.Test;
 import org.seedstack.seed.core.SeedMain;
 
 public class JmhIT {
-
     @Test
     public void basic() throws Exception {
-        SeedMain.getLauncher().launch(new String[0]);
+        SeedMain.main(new String[0]);
     }
 }

@@ -10,21 +10,21 @@ package org.seedstack.addons.jmh.fixtures;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.seedstack.addons.jmh.AbstractBenchmark;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@State(Scope.Thread)
-public class BenchmarkFixture {
+import static org.assertj.core.api.Assertions.assertThat;
 
+@State(Scope.Thread)
+public class BenchmarkFixture extends AbstractBenchmark {
     @Inject
-    @Named("adrien")
-    private String adrien;
+    @Named("someString")
+    private String someString;
 
     @Benchmark
     public void toBenchmark() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println(adrien + i);
-        }
+        assertThat(someString).isEqualTo("Hello World!");
     }
 }

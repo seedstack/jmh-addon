@@ -7,8 +7,8 @@
  */
 package org.seedstack.addons.jmh.internal;
 
+import io.nuun.kernel.api.Kernel;
 import org.openjdk.jmh.runner.SeedJmhRunner;
-import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.seedstack.addons.jmh.JmhConfig;
 import org.seedstack.coffig.Coffig;
@@ -16,32 +16,37 @@ import org.seedstack.seed.core.Seed;
 import org.seedstack.seed.spi.SeedLauncher;
 
 public class JmhLauncher implements SeedLauncher {
+    private Kernel kernel;
+
     @Override
     public void launch(String[] args) throws Exception {
-
         Coffig coffig = Seed.baseConfiguration();
         JmhConfig jmhConfig = coffig.get(JmhConfig.class);
 
-        Options opt = new OptionsBuilder()
-                .include(jmhConfig.getInclude())
-                .mode(jmhConfig.getMode())
-                .timeUnit(jmhConfig.getTimeUnit())
-                .warmupTime(jmhConfig.getWarmupTime())
-                .warmupIterations(jmhConfig.getWarmupIterations())
-                .measurementTime(jmhConfig.getMeasurementTime())
-                .measurementIterations(jmhConfig.getMeasurementIterations())
-                .threads(jmhConfig.getThreads())
-                .forks(jmhConfig.getForks())
-                .shouldFailOnError(jmhConfig.isShouldFailOnError())
-                .shouldDoGC(jmhConfig.isShouldDoGC())
-                .jvmArgs(jmhConfig.getJvmArgs())
-                .build();
+        if (jmhConfig.getForks() == 0) {
+            kernel = Seed.createKernel();
+        }
 
-        new SeedJmhRunner(opt).run();
+        new SeedJmhRunner(
+                new OptionsBuilder()
+                        .include(jmhConfig.getBenchmarks())
+                        .mode(jmhConfig.getMode())
+                        .timeUnit(jmhConfig.getTimeUnit())
+                        .warmupTime(jmhConfig.getWarmupTime())
+                        .warmupIterations(jmhConfig.getWarmupIterations())
+                        .measurementTime(jmhConfig.getMeasurementTime())
+                        .measurementIterations(jmhConfig.getMeasurementIterations())
+                        .threads(jmhConfig.getThreads())
+                        .forks(jmhConfig.getForks())
+                        .shouldFailOnError(jmhConfig.isFailOnError())
+                        .shouldDoGC(jmhConfig.isGarbageCollection())
+                        .jvmArgs(jmhConfig.getJvmArgs())
+                        .build())
+                .run();
     }
 
     @Override
     public void shutdown() throws Exception {
-        // nothing to do
+        Seed.disposeKernel(kernel);
     }
 }

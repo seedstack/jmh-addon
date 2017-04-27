@@ -17,78 +17,126 @@ import java.util.concurrent.TimeUnit;
 
 @Config("jmh")
 public class JmhConfig {
-
     @SingleValue
     @NotNull
-    private String include = ".*";
-
+    private String benchmarks = ".*";
     private Mode mode = Mode.AverageTime;
-
     private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-
     private TimeValue warmupTime = TimeValue.seconds(1);
-
     private int warmupIterations = 0;
-
     private TimeValue measurementTime = TimeValue.seconds(1);
-
     private int measurementIterations = 1;
-
     private int threads = 1;
-
     private int forks = 0;
-
-    private boolean shouldFailOnError = true;
-
-    private boolean shouldDoGC = false;
-
+    private boolean failOnError = true;
+    private boolean garbageCollection = false;
     private String[] jvmArgs = new String[]{};
 
-    public String getInclude() {
-        return include;
+    public String getBenchmarks() {
+        return benchmarks;
+    }
+
+    public JmhConfig setBenchmarks(String benchmarks) {
+        this.benchmarks = benchmarks;
+        return this;
     }
 
     public Mode getMode() {
         return mode;
     }
 
+    public JmhConfig setMode(Mode mode) {
+        this.mode = mode;
+        return this;
+    }
+
     public TimeUnit getTimeUnit() {
         return timeUnit;
+    }
+
+    public JmhConfig setTimeUnit(TimeUnit timeUnit) {
+        this.timeUnit = timeUnit;
+        return this;
     }
 
     public TimeValue getWarmupTime() {
         return warmupTime;
     }
 
+    public JmhConfig setWarmupTime(TimeValue warmupTime) {
+        this.warmupTime = warmupTime;
+        return this;
+    }
+
     public int getWarmupIterations() {
         return warmupIterations;
+    }
+
+    public JmhConfig setWarmupIterations(int warmupIterations) {
+        this.warmupIterations = warmupIterations;
+        return this;
     }
 
     public TimeValue getMeasurementTime() {
         return measurementTime;
     }
 
+    public JmhConfig setMeasurementTime(TimeValue measurementTime) {
+        this.measurementTime = measurementTime;
+        return this;
+    }
+
     public int getMeasurementIterations() {
         return measurementIterations;
+    }
+
+    public JmhConfig setMeasurementIterations(int measurementIterations) {
+        this.measurementIterations = measurementIterations;
+        return this;
     }
 
     public int getThreads() {
         return threads;
     }
 
+    public JmhConfig setThreads(int threads) {
+        this.threads = threads;
+        return this;
+    }
+
     public int getForks() {
         return forks;
     }
 
-    public boolean isShouldFailOnError() {
-        return shouldFailOnError;
+    public JmhConfig setForks(int forks) {
+        this.forks = forks;
+        return this;
     }
 
-    public boolean isShouldDoGC() {
-        return shouldDoGC;
+    public boolean isFailOnError() {
+        return failOnError;
+    }
+
+    public JmhConfig setFailOnError(boolean failOnError) {
+        this.failOnError = failOnError;
+        return this;
+    }
+
+    public boolean isGarbageCollection() {
+        return garbageCollection;
+    }
+
+    public JmhConfig setGarbageCollection(boolean garbageCollection) {
+        this.garbageCollection = garbageCollection;
+        return this;
     }
 
     public String[] getJvmArgs() {
         return jvmArgs;
+    }
+
+    public JmhConfig setJvmArgs(String[] jvmArgs) {
+        this.jvmArgs = jvmArgs;
+        return this;
     }
 }

@@ -7,44 +7,52 @@
  */
 package org.seedstack.addons.jmh.internal;
 
-import io.nuun.kernel.api.plugin.InitState;
+import com.google.inject.Injector;
 import io.nuun.kernel.api.plugin.context.Context;
-import io.nuun.kernel.api.plugin.context.InitContext;
-import io.nuun.kernel.api.plugin.request.ClasspathScanRequest;
-import org.seedstack.addons.jmh.JmhConfig;
+import org.seedstack.addons.jmh.AbstractBenchmark;
+import org.seedstack.seed.SeedException;
 import org.seedstack.seed.core.internal.AbstractSeedPlugin;
 
-import java.util.Collection;
+import javax.inject.Inject;
+import java.lang.reflect.Field;
 
 public class JmhPlugin extends AbstractSeedPlugin {
-    private JmhConfig jmhConfig;
+//    private static final Logger LOGGER = LoggerFactory.getLogger(JmhPlugin.class);
+//    private final Collection<Class<?>> benchmarkClasses = new ArrayList<>();
+
+    @Inject
+    private Injector injector;
 
     @Override
     public String name() {
         return "jmh";
     }
-    
-    @Override
-    public InitState initialize(InitContext initContext) {
-        jmhConfig = getConfiguration(JmhConfig.class);
 
-        // TODO: place add-on initialization code here if any
-
-        return InitState.INITIALIZED;
-    }
-
-    @Override
-    public Object nativeUnitModule() {
-        return new JmhModule();
-    }
+//    @Override
+//    public Collection<ClasspathScanRequest> classpathScanRequests() {
+//        return classpathScanRequestBuilder()
+//                .specification(BenchmarkSpecification.INSTANCE)
+//                .build();
+//    }
+//
+//    @Override
+//    public InitState initialize(InitContext initContext) {
+//        benchmarkClasses.addAll(initContext.scannedTypesBySpecification().get(BenchmarkSpecification.INSTANCE));
+//        for (Class<?> benchmarkClass : benchmarkClasses) {
+//            LOGGER.trace("Detected benchmark class {}", benchmarkClass.getName());
+//        }
+//        LOGGER.debug("Detected {} benchmark classes", benchmarkClasses.size());
+//        return InitState.INITIALIZED;
+//    }
 
     @Override
     public void start(Context context) {
-        // TODO: place add-on startup code here if any
-    }
-
-    @Override
-    public void stop() {
-        // TODO: place add-on shutdown code here if any
+        try {
+            Field injectorField = AbstractBenchmark.class.getDeclaredField("injector");
+            injectorField.setAccessible(true);
+            injectorField.set(null, injector);
+        } catch (Exception e) {
+            throw SeedException.wrap(e, JmhErrorCode.UNABLE_TO_SET_INJECTOR);
+        }
     }
 }

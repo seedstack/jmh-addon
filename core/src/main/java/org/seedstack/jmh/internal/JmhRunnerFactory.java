@@ -18,13 +18,16 @@ class JmhRunnerFactory {
     Runner createRunner(JmhConfig jmhConfig) {
         OptionsBuilder optionsBuilder = new OptionsBuilder();
         Optional.ofNullable(jmhConfig.getInclude()).ifPresent(optionsBuilder::include);
+        Optional.ofNullable(jmhConfig.getExclude()).ifPresent(optionsBuilder::exclude);
         optionsBuilder
                 .mode(jmhConfig.getMode())
+                .timeout(jmhConfig.getTimeout())
                 .timeUnit(jmhConfig.getTimeUnit())
                 .warmupTime(jmhConfig.getWarmupTime())
                 .warmupIterations(jmhConfig.getWarmupIterations())
                 .measurementTime(jmhConfig.getMeasurementTime())
                 .measurementIterations(jmhConfig.getMeasurementIterations())
+                .operationsPerInvocation(jmhConfig.getOperationsPerInvocation())
                 .threads(jmhConfig.getThreads())
                 .forks(jmhConfig.getForks())
                 .shouldFailOnError(jmhConfig.isFailOnError())

@@ -18,12 +18,15 @@ import java.util.concurrent.TimeUnit;
 public class JmhConfig {
     @SingleValue
     private String include;
+    private String exclude;
     private Mode mode = Mode.AverageTime;
+    private TimeValue timeout = TimeValue.seconds(10);
     private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
     private TimeValue warmupTime = TimeValue.seconds(1);
     private int warmupIterations = 0;
     private TimeValue measurementTime = TimeValue.seconds(1);
     private int measurementIterations = 1;
+    private int operationsPerInvocation = 1;
     private int threads = 1;
     private int forks = 0;
     private boolean failOnError = true;
@@ -39,12 +42,30 @@ public class JmhConfig {
         return this;
     }
 
+    public String getExclude() {
+        return exclude;
+    }
+
+    public JmhConfig setExclude(String exclude) {
+        this.exclude = exclude;
+        return this;
+    }
+
     public Mode getMode() {
         return mode;
     }
 
     public JmhConfig setMode(Mode mode) {
         this.mode = mode;
+        return this;
+    }
+
+    public TimeValue getTimeout() {
+        return timeout;
+    }
+
+    public JmhConfig setTimeout(TimeValue timeout) {
+        this.timeout = timeout;
         return this;
     }
 
@@ -90,6 +111,15 @@ public class JmhConfig {
 
     public JmhConfig setMeasurementIterations(int measurementIterations) {
         this.measurementIterations = measurementIterations;
+        return this;
+    }
+
+    public int getOperationsPerInvocation() {
+        return operationsPerInvocation;
+    }
+
+    public JmhConfig setOperationsPerInvocation(int operationsPerInvocation) {
+        this.operationsPerInvocation = operationsPerInvocation;
         return this;
     }
 

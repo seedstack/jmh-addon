@@ -8,5 +8,6 @@
 
 jmh:
   warmupIterations: 1
+  warmupTime: 2s
   measurementIterations: 1
 

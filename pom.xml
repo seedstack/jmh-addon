@@ -21,9 +21,10 @@
     <groupId>org.seedstack.addons.jmh</groupId>
     <artifactId>jmh</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
-        <seed.version>3.1.0</seed.version>
+        <seed.version>3.2.0-SNAPSHOT</seed.version>
         <jmh.version>1.18</jmh.version>
         <logback.version>1.1.6</logback.version>
 
@@ -43,6 +44,7 @@
                             <includedLicense>Apache 2</includedLicense>
                             <includedLicense>BSD</includedLicense>
                             <includedLicense>CDDL</includedLicense>
+                            <includedLicense>GPL w/ cpe</includedLicense>
                             <includedLicense>MIT</includedLicense>
                             <includedLicense>LGPL 2.1</includedLicense>
                             <includedLicense>LGPL 3.0</includedLicense>
@@ -65,7 +67,7 @@
                             <licenseMerge>LGPL 3.0|GNU Lesser Public License</licenseMerge>
                             <licenseMerge>MIT|MIT License</licenseMerge>
                             <licenseMerge>MIT|The MIT License</licenseMerge>
-                            <licenseMerge>IGNORED_LICENSE|GNU General Public License (GPL), version 2, with the Classpath exception</licenseMerge>
+                            <licenseMerge>GPL w/ cpe|GNU General Public License (GPL), version 2, with the Classpath exception</licenseMerge>
                         </licenseMerges>
                     </configuration>
                 </plugin>
@@ -73,35 +75,43 @@
         </pluginManagement>
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-core</artifactId>
-            <version>${seed.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-core</artifactId>
-            <version>${jmh.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-generator-annprocess</artifactId>
-            <version>${jmh.version}</version>
-            <scope>test</scope>
-        </dependency>
+    <modules>
+        <module>core</module>
+        <module>launcher</module>
+    </modules>
 
-        <dependency>
-            <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-testing</artifactId>
-            <version>${seed.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <profiles>
+        <profile>
+            <id>snapshots</id>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <id>ojo-libs-snapshot</id>
+                    <name>ojo-snapshots</name>
+                    <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <id>bintray</id>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <id>bintray-seedstack-jars</id>
+                    <name>bintray</name>
+                    <url>http://dl.bintray.com/seedstack/jars</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 </project>

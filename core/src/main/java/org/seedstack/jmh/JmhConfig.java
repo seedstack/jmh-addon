@@ -21,9 +21,9 @@ public class JmhConfig {
     private Mode mode = Mode.AverageTime;
     private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
     private TimeValue warmupTime = TimeValue.seconds(1);
-    private int warmupIterations = 5;
+    private int warmupIterations = 0;
     private TimeValue measurementTime = TimeValue.seconds(1);
-    private int measurementIterations = 10;
+    private int measurementIterations = 1;
     private int threads = 1;
     private int forks = 0;
     private boolean failOnError = true;

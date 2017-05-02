@@ -32,6 +32,7 @@ public class JmhLauncher implements SeedLauncher {
                     .createRunner(jmhConfig)
                     .run();
         }
+        System.exit(0);
     }
 
     @Override

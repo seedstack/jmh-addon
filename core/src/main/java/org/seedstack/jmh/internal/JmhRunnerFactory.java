@@ -7,31 +7,40 @@
  */
 package org.seedstack.jmh.internal;
 
+import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.SeedJmhRunner;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.seedstack.jmh.JmhConfig;
 
+import java.io.File;
 import java.util.Optional;
 
 class JmhRunnerFactory {
     Runner createRunner(JmhConfig jmhConfig) {
         OptionsBuilder optionsBuilder = new OptionsBuilder();
         Optional.ofNullable(jmhConfig.getInclude()).ifPresent(optionsBuilder::include);
+        Optional.ofNullable(jmhConfig.getIncludeWarmup()).ifPresent(optionsBuilder::includeWarmup);
         Optional.ofNullable(jmhConfig.getExclude()).ifPresent(optionsBuilder::exclude);
+        Optional.ofNullable(jmhConfig.getResult()).map(File::getAbsolutePath).ifPresent(optionsBuilder::result);
+        Optional.ofNullable(jmhConfig.getResultFormat()).ifPresent(optionsBuilder::resultFormat);
         optionsBuilder
+                .warmupMode(jmhConfig.getWarmupMode())
+                .warmupForks(jmhConfig.getWarmup().getForks())
+                .warmupBatchSize(jmhConfig.getWarmup().getBatchSize())
+                .warmupTime(jmhConfig.getWarmup().getTime())
+                .warmupIterations(jmhConfig.getWarmup().getIterations())
                 .mode(jmhConfig.getMode())
-                .timeout(jmhConfig.getTimeout())
-                .timeUnit(jmhConfig.getTimeUnit())
-                .warmupTime(jmhConfig.getWarmupTime())
-                .warmupIterations(jmhConfig.getWarmupIterations())
-                .measurementTime(jmhConfig.getMeasurementTime())
-                .measurementIterations(jmhConfig.getMeasurementIterations())
+                .forks(jmhConfig.getMeasurement().getForks())
+                .measurementBatchSize(jmhConfig.getMeasurement().getBatchSize())
+                .measurementTime(jmhConfig.getMeasurement().getTime())
+                .measurementIterations(jmhConfig.getMeasurement().getIterations())
                 .operationsPerInvocation(jmhConfig.getOperationsPerInvocation())
                 .threads(jmhConfig.getThreads())
-                .forks(jmhConfig.getForks())
                 .shouldFailOnError(jmhConfig.isFailOnError())
                 .shouldDoGC(jmhConfig.isGarbageCollection())
+                .timeout(jmhConfig.getTimeout())
+                .timeUnit(jmhConfig.getTimeUnit())
                 .jvmArgs(jmhConfig.getJvmArgs());
         return new SeedJmhRunner(optionsBuilder.build());
     }

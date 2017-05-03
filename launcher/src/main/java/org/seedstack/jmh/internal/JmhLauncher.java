@@ -23,7 +23,7 @@ public class JmhLauncher implements SeedLauncher {
         Coffig coffig = Seed.baseConfiguration();
         JmhConfig jmhConfig = coffig.get(JmhConfig.class);
 
-        if (jmhConfig.getForks() == 0) {
+        if (jmhConfig.getMeasurement().getForks() == 0) {
             kernel = Seed.createKernel();
             JmhPlugin jmhPlugin = getJmhPlugin(kernel);
             jmhPlugin.getRunner().run();

@@ -79,6 +79,25 @@
         <module>launcher</module>
     </modules>
 
+    <scm>
+        <url>https://github.com/seedstack/jmh-addon</url>
+        <connection>scm:git:git://github.com/seedstack/jmh-addon.git</connection>
+        <developerConnection>scm:git:git@github.com:seedstack/jmh-addon.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-jfrog-jfrog-jars</id>
+            <name>bintray-plugins</name>
+            <url>http://dl.bintray.com/jfrog/jfrog-jars</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
     <profiles>
         <profile>
             <id>snapshots</id>

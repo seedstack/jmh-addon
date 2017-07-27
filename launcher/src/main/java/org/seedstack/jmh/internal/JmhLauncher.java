@@ -7,6 +7,7 @@
  */
 package org.seedstack.jmh.internal;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.nuun.kernel.api.Kernel;
 import io.nuun.kernel.api.Plugin;
 import org.seedstack.coffig.Coffig;
@@ -19,6 +20,7 @@ public class JmhLauncher implements SeedLauncher {
     private Kernel kernel;
 
     @Override
+    @SuppressFBWarnings(value = "DM_EXIT", justification = "JmhLauncher must be able to return a code to the system")
     public void launch(String[] args) throws Exception {
         Coffig coffig = Seed.baseConfiguration();
         JmhConfig jmhConfig = coffig.get(JmhConfig.class);

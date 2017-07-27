@@ -226,11 +226,11 @@ public class JmhConfig {
     }
 
     public String[] getJvmArgs() {
-        return jvmArgs;
+        return jvmArgs == null ? null : jvmArgs.clone();
     }
 
     public JmhConfig setJvmArgs(String[] jvmArgs) {
-        this.jvmArgs = jvmArgs;
+        this.jvmArgs = jvmArgs == null ? null : jvmArgs.clone();
         return this;
     }
 }

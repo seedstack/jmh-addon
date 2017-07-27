@@ -26,7 +26,6 @@
     <properties>
         <seed.version>3.3.0-SNAPSHOT</seed.version>
         <jmh.version>1.18</jmh.version>
-        <logback.version>1.2.3</logback.version>
 
         <compatibility.skip>true</compatibility.skip>
 

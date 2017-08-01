@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.seedstack.poms</groupId>
         <artifactId>parent-internal</artifactId>
-        <version>3.1.0-SNAPSHOT</version>
+        <version>3.1.0</version>
     </parent>
 
     <groupId>org.seedstack.addons.jmh</groupId>
@@ -24,10 +24,10 @@
     <packaging>pom</packaging>
 
     <properties>
-        <seed.version>3.3.0-SNAPSHOT</seed.version>
+        <seed.version>3.3.0</seed.version>
         <jmh.version>1.18</jmh.version>
 
-        <compatibility.skip>true</compatibility.skip>
+        <compatibility.version>1.0.1</compatibility.version>
 
         <bintray.package>jmh-addon</bintray.package>
     </properties>

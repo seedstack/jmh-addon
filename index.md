@@ -102,8 +102,8 @@ benchmarks.
 
 ## Benchmark tool
  
-A [SeedStack tool]({{< relref "docs/seed/manual/running.md#tool-mode" >}}) named `benchmark` is provided to run benchmarks
-embedded in an application. It can be run using the [SeedStack Maven plugin]({{< relref "docs/overview/maven-plugin/tool.md" >}}):
+A [SeedStack tool]({{< ref "docs/seed/manual/running.md#tool-mode" >}}) named `benchmark` is provided to run benchmarks
+embedded in an application. It can be run using the [SeedStack Maven plugin]({{< ref "docs/maven-plugin/manual/tool.md" >}}):
 
 ```plain
 mvn -Dargs="benchmark" org.seedstack:seedstack-maven-plugin:tool
@@ -122,7 +122,7 @@ is provided by the following dependency:
 
 {{< dependency g="org.seedstack.addons.jmh" a="jmh-launcher" >}}
 
-A [capsule packaging]({{< relref "docs/overview/maven-plugin/package.md" >}}) will allows your benchmarks to be run from
+A [capsule packaging]({{< ref "docs/maven-plugin/manual/package.md" >}}) will allows your benchmarks to be run from
 the command-line:
 
 ```plain

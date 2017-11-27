@@ -1,5 +1,6 @@
 ---
 title: "JMH"
+addon: "JMH"
 repo: "https://github.com/seedstack/jmh-addon"
 author: "Tuan DO CAO"
 description: "Provides integration of JHM for benchmarking SeedStack applications."
@@ -7,21 +8,19 @@ tags:
     - monitoring
 zones:
     - Addons
-menu:
-    AddonJMH:
-        weight: 10
+noMenu: true    
 ---
 
 SeedStack JMH add-on provides integration of [JMH](http://openjdk.java.net/projects/code-tools/jmh/) which is a harness
 for building benchmarks.<!--more-->
 
-# Dependency
+## Dependency
 
 To add JMH integration to your project, use the following dependency:
 
 {{< dependency g="org.seedstack.addons.jmh" a="jmh-core" >}}
 
-# Configuration
+## Configuration
 
 {{% config p="jmh" %}}
 ```yaml
@@ -75,7 +74,7 @@ jmh:
 ```
 {{% /config %}}
 
-# Writing benchmarks
+## Writing benchmarks
 
 To be injectable, benchmark classes must extend the {{< java "org.seedstack.jmh.AbstractBenchmark" >}} class:
 
@@ -98,9 +97,9 @@ Check the [JMH documentation](http://openjdk.java.net/projects/code-tools/jmh/) 
 benchmarks.
 {{% /callout %}}
 
-# Running benchmarks
+## Running benchmarks
 
-## Benchmark tool
+### Benchmark tool
  
 A [SeedStack tool]({{< ref "docs/core/launchers.md#tool-mode" >}}) named `benchmark` is provided to run benchmarks
 embedded in an application. It can be run using the [SeedStack Maven plugin]({{< ref "docs/maven-plugin/tool.md" >}}):
@@ -115,7 +114,7 @@ Or you can run it from your capsule:
 java -Dseedstack.tool=benchmark -jar app-capsule.jar
 ```
 
-## Launcher
+### Launcher
 
 If you choose to package your benchmarks in their own separate module, a launcher will be needed to run them. This launcher
 is provided by the following dependency:
@@ -129,7 +128,7 @@ the command-line:
 java -jar benchmark-capsule.jar
 ```
 
-## Programmatic execution
+### Programmatic execution
 
 If you need more control you can inject the JMH runner and run benchmarks manually:
 

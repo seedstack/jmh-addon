@@ -101,7 +101,7 @@ benchmarks.
 
 ### Benchmark tool
  
-A [SeedStack tool]({{< ref "docs/core/launchers.md#tool-mode" >}}) named `benchmark` is provided to run benchmarks
+A [SeedStack tool]({{< ref "docs/core/index.md#tool-mode" >}}) named `benchmark` is provided to run benchmarks
 embedded in an application. It can be run using the [SeedStack Maven plugin]({{< ref "docs/maven-plugin/tool.md" >}}):
 
 ```plain
